@@ -8,9 +8,15 @@ public class Scope_Of_Variables {
         System.out.println(gv);
         System.out.println(lv);
     }
+    void demo()
+    {
+        System.out.println(gv);
+//        System.out.println(lv);
+    }
     public static void main(String[] args) {
         int x=90;
-        Scop_Of_Var ss=new Scop_Of_Var();
+        Scope_Of_Variables ss=new Scope_Of_Variables();
         System.out.println(ss.gv);
+
     }
 }
