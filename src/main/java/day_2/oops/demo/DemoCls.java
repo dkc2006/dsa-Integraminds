@@ -1,10 +1,10 @@
-package day_2.oops.demo;
+package oops.AccessModifierExa;
 
 public class DemoCls
 {
     public static void main(String[] args)
     {
-        Acc_Mod_Exa obj=new Acc_Mod_Exa();
+        AccessModifierExa obj=new AccessModifierExa();
         System.out.println(obj.b);
         obj.prot_Fun();
         obj.pub_Fun();
