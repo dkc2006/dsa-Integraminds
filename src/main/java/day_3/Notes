@@ -1,0 +1,198 @@
+Time Complexity
+
+----------------
+
+log n
+
+root n
+
+n
+
+n log n
+
+n root n
+
+n^2
+
+n^3
+
+2^n
+
+n!
+
+n^n
+
+Why Optimation Important:
+
+--------------------------
+
+iteration
+
+---------------
+
+10^8 iteration = 1sec
+
+1    iteration = 1/10^8
+
+---------------------
+
+1    iteration = 1/10^8
+
+10^9 iteraion  = 1*10^9/10^8
+
+               = 10 sec
+
+----------------
+
+
+
+(Integer Max Range) (2^32)-1 = 10^9
+
+(Long)              (2^64)-1 = 10^18
+
+---------------
+
+10^18 = 10^18/10^8
+
+      = 10^10sec
+
+10^10sec = 317 (Year)
+
+
+
+A          B
+
+15s       10s
+
+xp        xp
+
+mac       xp
+
+7s        10s
+
+c++       c++
+
+c++       python
+
+7s          5s
+
+cool      heat place
+
+place      5s
+
+3s         5s
+
+---------------------
+
+Iteration is The Best Factor to Compare 2 algorithms
+
+Build in DataTypes   wrapper class , auto boxing
+
+-----------------     --------------------------
+
+byte                    Byte
+
+short                   Short
+
+int                     Integer
+
+long			Long
+
+float			Float
+
+double   		Double
+
+
+
+DYNAMIC ARRAY
+
+-------------
+
+.) ArrayList  -> Build in Class
+
+.) java.util package
+
+ADVANTAGES
+
+----------
+
+.) No Need To Mention ArraySize
+
+.) We Can Insert N Numbers Of Data
+
+.) We Can Update Particular Index Value
+
+.) We Can DELET Particular Index Value  [Not Possible in Normal Array]
+
+.) We Can Insert Both Homogenious &   Hetrogenious
+
+                      {11,22,33}    {11,"GLA",34.65,true,'G'}
+
+.) Constructor Chaining is There [Automatically it Will Increase its Array Size While inserting Data]
+
+				 [Automatically it Will Decrese  its Array Size While Deleting Data]
+
+
+
+Normal Arrays :
+
+----------------
+
+.)We Should Mention Array Size
+
+  int[] ar=new int[3];
+
+.)Homogenious [Same Type Of Data]
+
+                  int[]ar = {11,22,33};          -> Correct
+
+                  String[] ar = {10^18"India",22,56.34};  -> Incorrect
+
+.) Can't Delete Particular Index Value
+
+       ar[0]=11;
+
+.) We Can Update Particular Index Value
+
+      ar[0]=22;
+
+.) int[] ar=new int[50];
+
+      Cannot insert More Than 50 data
+
+.) int[] ar=new int[50];
+
+    	ar[0]=11
+
+	.
+
+	.
+
+	.
+
+	ar[35]=99
+
+                  |
+
+                  |
+
+                   ---> REMAINING INDEX MEMORY IS WASTE
+
+----------------------------------------------------------------------
+
+.)ADVANTAGE
+
+  ---------
+
+             If We Know The Exact Size Of Array
+
+             If It is Homogenious
+
+					    |
+
+                  		|
+
+                   		--->
+
+            		 		ARRAYS ARE FASTER THA DYNAMIC ARRAY
+
