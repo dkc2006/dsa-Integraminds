@@ -1,4 +1,4 @@
-package day_2.oops;
+package oops;
 
 class PBook {
     //runtime poly or methor overriding

@@ -1,4 +1,4 @@
-package day_2.oops;
+package oops;
 
 class GLA {
     private void stu_Contact_Det() {

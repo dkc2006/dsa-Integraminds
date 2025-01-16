@@ -1,4 +1,4 @@
-package day_2.oops;
+package oops;
 
 interface Color {
     void red();

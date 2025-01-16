@@ -1,4 +1,4 @@
-package day_2.oops;
+package oops;
 
 public class Arun extends Gmail {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package day_2.oops;
+package oops;
 
 // interface is 100% abstract class & abstract Function.
 //We can't Create Object For interface

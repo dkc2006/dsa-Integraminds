@@ -1,4 +1,4 @@
-package oops.AccessModifierExa;
+package oops.demo;
 
 public class DemoCls
 {
