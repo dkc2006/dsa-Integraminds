@@ -1,0 +1,374 @@
+- Sliding Window Technique
+
+- Contribution Technique
+
+
+[1 10] -> 10
+
+[1 10) -> 9
+
+(1 10] -> 9
+
+(1 10) -> 8
+
+----------------
+
+[1450  2340] -> ?
+
+[1230  2940) -> ?
+
+(132 876]  -> ?
+
+(139 896)  -> ?
+
+Range Sum
+
+-----------------------------------
+
+ [ -> Included
+
+ ( -> Not Included
+
+ [a b] -> b-a+1  --> [1 10] ->10-1+1=10
+
+ [a b) -> b-a    --> [1 10) ->10-1=9
+
+ (a b] -> b-a    --> (1 10] ->10-1=9
+
+ (a b) -> b-a-1  --> (1 10) ->10-1-1=8
+
+Print All Possible SubArray
+
+-----------------------------
+
+[1 2 3 4]
+
+
+
+[1]         [2]      [3]      [4]
+
+[1,2]       [2,3]    [3,4]
+
+[1,2,3]     [2,3,4]
+
+[1,2,3,4]
+
+Print Count Of All Possible SubArray
+
+---------------------------------------
+
+[1 2 3 4]
+
+
+
+[1]         [2]      [3]      [4]
+
+[1,2]       [2,3]    [3,4]
+
+[1,2,3]     [2,3,4]
+
+[1,2,3,4]
+
+
+
+    4    +    3     +  2    +  1  = 10
+
+N(N+1)/2
+
+4(5)/2
+
+20/2=10
+
+
+
+Print All Possible SubArray Having Length is Equal To K
+
+-------------------------------------------------------
+
+Arr   : [1 2 3 4 5 6]       N=6 , K=3
+
+Index :  0 1 2 3 4 5
+
+s  e
+
+-----
+
+0  2   [1,2,3]
+
+1  3   [2,3,4]
+
+2  4   [3,4,5]
+
+3  5   [4,5,6]
+
+If We Have an Array available Having Length is N.
+
+How Many Sub Array is Possible Having Length is equal to K.
+
+------------
+
+N=10 , K=5
+
+[0,0,0,0,0,0,0,0,0,0]
+
+ 0 1 2 3 4 5 6 7 8 9
+
+s  e
+
+-----
+
+0  4
+
+1  5
+
+2  6
+
+3  7
+
+4  8
+
+5  9
+
+         Answer : 6
+
+---------------------------------------------
+
+Calculate Possible Starting point for K length Subarray
+
+N=10 , K=5
+
+          N-K     N-1
+
+           |       |
+
+[0,0,0,0,0,0,0,0,0,0]
+
+ 0 1 2 3 4 5 6 7 8 9
+
+ a  b       b-a  +1
+
+[0 n-k]  -> n-k-0+1
+
+            n-k+1   --> Number of SubArray Having Length K
+
+PROBLEM
+
+-------
+
+Given An Array Having Length is N.
+
+Print Maximum SubArray Sum Having Length is Equal to K.
+
+---------------
+
+N=10 , K=5
+
+ar    : [-3 4 -2 5 3 -2 8 2 -1 4]
+
+index :  0 1  2 3  4  5 6 7  8 9
+
+
+
+
+
+All Possible SubArray , Length K
+
+
+
+S  E  SUM
+
+----  ----
+
+0  4   7
+
+1  5   8
+
+2  6   12
+
+3  7   16  --->  MAX
+
+4  8   10
+
+5  9   11
+
+------------------------------------------------------------------
+
+CODE :
+
+--------
+
+int ans=0;
+
+int s=0,e=k-1;
+
+while(e<n)               ----->  N-K+1
+
+{
+
+   int sum=0;
+
+   for(int i=s;i<=e;i++)    ----->  K
+
+   {
+
+     sum+=ar[i];
+
+   }
+
+s++;
+
+e++;
+
+ans=Math.max(ans,sum);
+
+}
+
+t.c=O(N-K+1*K)
+
+-----
+
+K=1
+
+     t.c=O(N)
+
+---------------
+
+t.c=O(N-K+1*K)
+
+-----
+
+K=N
+
+     t.c=O(N)
+
+---------------
+
+K=N/2
+
+     t.c=O(N^2)
+
+                    Worst Time Complesity  ,If , N=>10^9
+
+SLIDING WINDOW TECHNIQUE :
+
+----------------------------
+
+N=10 , K=5
+
+ar    : [-3 4 -2 5 3 -2 8 2 -1 4]
+
+index :  0  1  2 3 4  5 6 7  8 9
+
+
+
+MAX= 16
+
+s  e  sum  release   Acquire
+
+0  4   7     0         5
+
+1  5   8     1         6
+
+2  6   12    2         7
+
+3  7   16    3         8
+
+4  8   10    4         9
+
+--------------------------------------
+
+	 int maxSum_SWT(int[] ar,int k)
+
+	 {
+
+		 int sum=0;
+
+		 for(int i=0;i<k;i++)
+
+		 {
+
+			 sum+=ar[i];
+
+		 }
+
+                                            -----------> T.C = O(N)
+
+		 int ans=sum;
+
+		 int s=1;
+
+		 int e=k;
+
+		 while(e<ar.length)
+
+		 {
+
+			 //Acquire
+
+			 sum+=ar[e];
+
+
+
+			 //Release
+
+			 sum-=ar[s-1];
+
+
+
+			 ans=Math.max(ans,sum);
+
+
+
+			 s++;
+
+			 e++;
+
+		 }
+
+
+
+		 return ans;
+
+	 }
+
+CONTRIBUTION TECHNIQUE :
+
+--------------------------
+
+[1,2,3,4]   N=4 , i=2   N=10 , i= 6
+
+s  e    subarray   SUM
+
+-----   --------   ------
+
+0  0    [1]         1
+
+0  1    [1,2]       3
+
+0  2    [1,2,3]     6
+
+0  3    [1,2,3,4]   10
+
+1  1    [2]         2
+
+1  2    [2,3]       5
+
+1  3    [2,3,4]     9
+
+2  2    [3]         3
+
+2  3    [3,4]       7
+
+3  3    [4]         4
+
+                 ---------
+
+                   50
+
+                 --------
+
+               A* [3] + B*[2] + C[1] + D*[0]
+
+               4* 4   + 6*3   + 6*2  + 4*1
+
+               16    +18   +12  +4  =>   50
