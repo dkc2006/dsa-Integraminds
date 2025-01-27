@@ -1,0 +1,366 @@
+                           MEMORY
+
+                 -----------------------------------
+
+                |  Y 	  |   Y  |  Y  |  N |  Y 	| N 	|  Y 	|
+
+		 ------------------------------------
+
+                   4B      4B      4B      4B      4B      4B      4B
+
+int[] ar=new ar[3]
+
+ar[1]
+
+ar[1]
+
+ar[2]
+
+Issues With Array
+
+-----------------
+
+                      We need Continous Space in memory to Store Array Elements . Space May Be in CHUNKS but not Continous . Which Can't Create an Array.
+
+Linked List :
+
+-------------
+
+                It's a linear dataStructure that utilize all the Free memory. No Need Of Continuous Space to Store LinkedList Node.
+
+Representaion :
+
+---------------
+
+                      ---------------
+
+                      | data | next |
+
+                      ---------------
+
+
+
+
+
+Java Code :
+
+-----------
+
+class Node
+
+{
+
+   int data;
+
+   Node next;
+
+   Node(int x)
+
+   {
+
+     data = x;
+
+     next=null;
+
+   }
+
+}
+
+Node n1=new Node(10);
+
+
+
+                           n1
+
+                      ------------
+
+                          10  |  NULL
+
+                      ------------
+
+
+
+
+Node n1=new Node(10);
+
+Node n2=new Node(20);
+
+Node n3=new Node(30);
+
+
+
+                           n1
+
+                      ------------
+
+                      | 10 | NULL
+
+                      ------------
+
+	                   n2
+
+                      ------------
+
+                       20 | NULL
+
+                      ------------
+
+                           n3
+
+                      ------------
+
+                      | 30 | NULL
+
+                      ------------
+
+
+
+
+                   n1                                n2                                  n3
+
+                      ------------	 	------------		------------
+
+                       10 | 2k     --------->    20 | 3k     --------->	 30 | NULL
+
+                      ------------		------------		------------
+
+                          1k                                  2k                                      3k
+
+                        Head
+
+void display(Node head)
+
+{
+
+   while(head!=null)
+
+   {
+
+      System.out.println(head.data);    // 10  - 20 -  30
+
+      head=head.next;
+
+   }
+
+}
+
+head=1k;
+
+display(head);
+
+
+
+How We Can Access The K_th Element
+
+----------------------------------
+
+
+
+
+
+                          n1                                       n2                             n3
+
+                      ------------	 	------------		------------
+
+                       10 | 2k     --------->    20 | 3k     --------->	 30 | NULL
+
+                      ------------		------------		------------
+
+                          1k                                  2k                                   3k
+
+                      Head / Temp
+
+                                       3
+
+int  access_K_th_Element(Node head,int k)
+
+{
+
+    Node temp=head;
+
+   for(int i=1;i<K;i++)      i=3
+
+   {
+
+      temp=temp.next;
+
+   }
+
+    int data=temp.data;    //30
+
+}
+
+head=1k;
+
+display(head);
+
+
+
+
+Check For Value X
+
+----------------------------------
+
+
+
+                          n1                                         n2                       n3
+
+                      ------------	 	------------		------------
+
+                       10 | 2k     --------->    20 | 3k     --------->	 30 | NULL
+
+                      ------------		------------		------------
+
+                          1k                                      2k                               3k
+
+                      Head /   Temp
+
+
+
+boolean  checkElement(Node head,int x)
+
+{
+
+   Node temp=head;
+
+   while(temp!=null)
+
+   {
+
+      if(temp.data==x)
+
+      {
+
+          return true;
+
+      }
+
+       temp=temp.next;
+
+   }
+
+    return false;
+
+}
+
+
+
+
+insert Node at Position 4
+
+--------------------------
+
+
+
+                          n1                                     n2                                  n3                               n4
+
+                      ------------	 	 ------------		------------              ------------
+
+                       10 | 2k     --------->    20 | 3k     --------->	 30 | 5k  --------->     30 | NULL
+
+                      ------------		------------		------------              ------------
+
+                          1k                                       2k                                  3k                                   4k
+
+                      Head / Temp
+
+                                                                                                nn
+
+                    									   ------------
+
+                  									    | 80 | 4k
+
+                   								           ------------
+
+                                                                                               5k
+
+    1.Create New Node
+
+    2.Travel till position 3
+
+    3.Node temp =  curr.next (4)
+
+    4.disconnect Connection Between  Node 3 & 4
+
+    5.create connection Between 3 & NewNode
+
+    6.curr.next=nn;
+
+    7.create connection Between NewNode & 4 (temp)
+
+    8.nn.next=temp;
+
+
+
+
+         n1                                      n2                                 n3                                n4
+
+                       ------------	 	------------		------------              ------------
+
+                            10 | 2k    -  ---->    20 | 3k     --------->	 30 | 5k  --------->     30 | NULL
+
+                       ------------		------------		------------              ------------
+
+                           1k                                     2k                                 3k                                      4k
+
+                                                                             P
+
+                       Head / Temp
+
+                                                                                                 nn
+
+                     									   ------------
+
+                   									    | 80 | 4K
+
+                    								           ------------
+
+
+
+ Code :                                                                                         5K
+
+ ------
+
+ Node insert_At_Pos(int pos,int val,Node head)
+
+ {
+
+  //1
+
+    Node newNode=new Node(val);
+
+  //2 Travel till Pos-1
+
+     Node p=head;
+
+     for(int i=1;i<pos-1;i++)
+
+     {
+
+      p=p.next;
+
+     }
+
+     //3 insert Node
+
+       newNode.next=p.next;
+
+       p.next=newNode;
+
+     return head;
+
+ }
+
+ EDGE CASE :
+
+ -----------
+
+                if(pos==0)
+
+ 	       {
+
+                   newNode.next=head;
+
+                   head=newNode;
+
+                }
