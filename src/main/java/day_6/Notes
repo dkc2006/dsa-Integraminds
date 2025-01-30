@@ -117,7 +117,7 @@ Can't Update Data , Can't Use extra Space
 
 
 
-Node curr=head;                                                                          Here We Lost Third Node Access
+Node curr=head;                                                Here We Lost Third Node Access
 
 Node temp=curr.next
 
