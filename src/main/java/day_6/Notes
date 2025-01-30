@@ -1,0 +1,350 @@
+Reverse LinkedList
+
+--------------------
+
+Can't Update Data , Can't Use extra Space
+
+                          n1                                   n2                               n3
+
+                      ------------	 	------------		------------
+
+                          10 |  2k    ---->         20 | 3k        ----->      30 | NULL
+
+                      ------------		------------		------------
+
+                          1k                                     2k                                3k
+
+                       HEAD NODE
+
+-----------------------------------------------------------------------------------------------------------------------
+
+                            n1                               n2                                       n3
+
+                      ------------	 	------------		------------
+
+                       10 | NULL   <---------    20 | 1k     <---------	 30 | 2K
+
+                      ------------		------------		------------
+
+                          1k                                         2k                               3k
+
+                                                                                                         HEAD
+
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+Reverse LinkedList    With Fail Approach [Using 2 Pointers]
+
+-------------------------------------------
+
+Can't Update Data , Can't Use extra Space
+
+                         HEAD
+
+                          n1                                   n2
+
+                      ---------	 	  ----------
+
+                          10 | 2k      ----->        20 | NULL
+
+                      ---------		  -----------
+
+                          1k                                  2k
+
+                         curr                              temp
+
+
+
+Node curr=head;
+
+Node temp=curr.next
+
+-----------------------
+
+temp.next = curr;
+
+curr.next = null
+
+-----------------------
+
+head=temp;
+
+
+
+                         HEAD
+
+                          n1                                   n2
+
+                      ---------	 	  ----------
+
+                          10 | 2k      <-----        20 | 1k
+
+                      ---------		  -----------
+
+                          1k                                  2k
+
+                         curr                              temp
+
+
+
+
+--------------------------------------------------------------------------------------------
+
+
+Reverse LinkedList
+
+--------------------
+
+Can't Update Data , Can't Use extra Space
+
+                                                    HEAD
+
+                          n1                         n2                       n3
+
+                      ------------	 	------------		------------
+
+                       10 | 2k   <---------       20 | 1k     --------->     30 | NULL
+
+                      ------------		------------		------------
+
+                          1k                         2k                      3k
+
+                        curr                          temp
+
+
+
+Node curr=head;                                                                          Here We Lost Third Node Access
+
+Node temp=curr.next
+
+-----------------------
+
+temp.next = curr;
+
+curr.next = null
+
+-----------------------
+
+head=temp;
+
+
+
+--------------------------------------------------------------------------------------------
+
+Reverse LinkedList [Using 3 pointers Approach]
+
+-------------------------------------------
+
+Can't Update Data , Can't Use extra Space
+
+   HEAD
+
+    n1                                          n2                     n3              n4                 n5
+
+  ------------	 	 ------------		------------	------------	    ------------
+
+   10 | 2k   <---------    20 | 1k   <---------	 30 | 2k   <---  40 | 3k  ---->      50 | 4k
+
+  ------------		 ------------		------------	------------	    ------------
+
+     1k                      2k                  3k                4k                   5k
+
+                                                                                                          temp
+
+
+
+                                                                                   /prev                   curr
+
+
+
+STEP 1  [Disconnect / Connect]
+
+------------------------------
+
+curr.next=prev
+
+STEP 2 [UPDATE VARIABLE]
+
+-------------------------
+
+prev=curr;
+
+curr=temp;
+
+temp=temp.next
+
+---------------------------
+
+if(temp!=null)
+
+  temp=temp.next
+
+while(curr!=null)
+
+
+
+
+------------------------------------------------------------------------------------------------
+
+
+Code [Reversing The LinkedList]
+
+---------------------------------''
+
+Node reverse_LL(Node head)
+
+{
+
+ if(head==null || head.next==null)
+
+  {
+
+    return head;
+
+  }
+
+   Node prev=null;
+
+   Node curr=head;
+
+   Node temp=curr.next;
+
+  while(curr!=null)   //3k
+
+  {
+
+   //step 1
+
+    curr.next=prev
+
+  //step 2
+
+    prev=curr;
+
+    curr=temp;
+
+    if(temp!=null)
+
+       temp=temp.next      //null
+
+   }
+
+    return head;
+
+}
+
+
+
+-------------------------------------------------------------------------------------------
+
+
+Middle Of The LinkedList
+
+------------------------
+
+Given head Node ,return the Mid Of The LinkedList
+
+
+
+     1-->2-->3-->4-->5-->6-->7-->null
+
+                   M
+
+     1-->2-->3-->4-->5-->6-->7-->8-->null
+
+                            M1     M2
+
+
+
+    Idea 1:
+
+    -------
+
+            1)  Iterate and Calculate Size Of List
+
+            2)  Iterate till N/2 and return mid
+
+                             K=N/2 (Accesing the K_th ELement)
+
+
+
+                t.c=O(N)  , s.c=O(1)
+
+-------------------------------------------------
+
+1)Iterate and Calculate Size Of List
+
+  ----------------------------------
+
+
+
+int FindLen(Node head)
+
+{
+
+    int count=0;
+
+    Node temp=head;
+
+   while(temp!=null)
+
+   {
+
+      count+=1;
+
+      temp=temp.next;
+
+   }
+
+    return count;
+
+}
+
+head=1k;
+
+display(head);
+
+----------------------------------------------------------
+
+2) Iterate till N/2 and return mid
+
+   _______________________________
+
+
+
+   int pos = N/2
+
+   int K=pos;
+
+ int  access_K_th_Element(Node head,int k)
+
+{
+
+    Node temp=head;
+
+   for(int i=0;i<K;i++)
+
+   {
+
+      temp=temp.next;
+
+   }
+
+     int data=temp.data;
+
+     return data;
+
+}
+
+head=1k;
+
+display(head);
+
+
+
+
+
