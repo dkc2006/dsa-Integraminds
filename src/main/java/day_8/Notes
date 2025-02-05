@@ -1,0 +1,447 @@
+Stack
+
+------
+
+stack is also linear DataStructure.
+
+LIFO : last in First Out
+
+ 
+
+3   head
+
+|
+
+2 
+
+|
+
+1
+
+----
+
+stack 
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+LinkedList
+
+----------
+
+  1-->2--> 3--> 4-->5---->null
+
+Head                         Tail
+
+Application 
+
+----------
+
+1.Calculator
+
+2.google (google.com --> linkedin --> youtube --> redo)
+
+Operations :
+
+------------
+
+                   Stack<DataType> stk=new Stack<>();
+
+PUSH :
+
+              Add New Element on Top Of Stack.
+
+                    stk.push(data);
+
+ 
+
+POP  : 
+
+              Remove Top Most Element From The Stack(& return the top Element).
+
+                  stk.pop();
+
+PEEK :
+
+         Access or View topmost element.
+
+             DataType data=stk.peek();
+
+isEmpty  :
+
+             check if Stack is Empty or Not
+
+                  stk.isEmpty()                       
+
+Stack Basic Operation Using LinkedList
+
+----------------------------------------------
+
+Node head=null;
+
+int size=0;
+
+void push(int data)
+
+{
+
+Node nn=new Node(data);
+
+nn.next=head;     
+
+head=nn;
+
+size++;
+
+}
+
+--------------------------------------------------------------------------------------------
+
+boolean isEmpty()
+
+{
+
+if(head==null)
+
+{
+
+   return true;
+
+}
+
+  return false;
+
+}
+
+-------------------------------------------------------------------------------------------
+
+void pop()
+
+{
+
+if(!isEmpty())
+
+{
+
+    head=head.next;
+
+     size--;
+
+}
+
+}
+
+--------------------------------------------------------------------------------------------
+
+int peek()
+
+{
+
+if(!isEmpty())
+
+{
+
+    return head.data;
+
+}
+
+}
+
+------------------------------------------------------------------------------
+
+BALANCED PARANTHESIS CONCEPT :
+
+------------------------------
+
+Given an String S 
+
+check if given set of brackets are valid or Not ?
+
+ {} , () , []
+
+Ex :
+
+      " {}()[] "  ---> true   
+
+   "  ()[{}]]  "  ---> false
+
+     "  ({}]    "   ---> false
+
+ CODE :  
+
+Boolean check_paran(String s)
+
+{
+
+Stack<Charecter> st=new Stack<>();
+
+for(int i=0;i<s.length;i++)
+
+{
+
+if(s[i]=='(' || s[i]=='[' || s[i]=='{')
+
+{
+
+            st.push(s.charAt(i))
+
+       }
+
+       else                       
+
+       if(s.charAt(i)==')')  
+
+      {
+
+          if(st.isEmpty() || st.peek()!='(')
+
+            {
+
+                return false;
+
+            }
+
+          st.pop();
+
+       }
+
+else
+
+if(s.charAt(i)==']')
+
+{
+
+   if(st.isEmpty() || st.peek()!='[')
+
+   {
+
+      return false;
+
+   } 
+
+    st.pop();
+
+}
+
+else
+
+if(s.charAt(i)=='}')
+
+{
+
+   if(st.isEmpty() || st.peek()!='{')
+
+   {
+
+      return false;
+
+   } 
+
+    st.pop();
+
+}
+
+}
+
+   if(!st.isEmpty())   //Edge Case 
+
+    {
+
+      return false;
+
+    }
+
+ return true;
+
+}
+
+Nearest Smallest Element  [Left Side]
+
+-------------------------------------
+
+Given an integer Array A , find the index of nearest smallest element on left for all I inex in A[].
+
+A[i] < A[j]  , j < i
+
+j is Maximum
+
+ indx      0 1 2 3 4 5 6 7
+
+A[]    = {8,2,4,9,7,5,3,10}
+
+Element             Nearest                               index of 
+
+                    Smallest Element          Nearest Smallest Element
+
+------------------------------------------------------------   
+
+8                            N/A                                       -1
+
+------------------------------------------------------------
+
+2                            N/A                                       -1
+
+------------------------------------------------------------
+
+4                             2                                             1
+
+------------------------------------------------------------
+
+9                            4                                            2
+
+------------------------------------------------------------
+
+7                            4                                            2
+
+------------------------------------------------------------
+
+5                           4                                             2
+
+------------------------------------------------------------
+
+3                           2                                              1
+
+------------------------------------------------------------
+
+10                          3                                             6
+
+------------------------------------------------------------
+
+ CODE  :  
+
+int[] NSE(int ar[])
+
+{
+
+      int[] ans=new int[ar.length];
+
+      Stack<Integer> st=new Stack<>();
+
+      st.push(ar[0]);
+
+      ans[0]=-1;
+
+      for(int i=1;i<ar.length;i++)
+
+     {
+
+          if(st.peek()<ar[i])
+
+          {
+
+               ans[i]=st.peek();
+
+               st.push(ar[i]);
+
+          }
+
+          while(!st.isEmpty() && st.peek()>=ar[i])
+
+          {
+
+             st.pop();
+
+           } 
+
+          if(!st.isEmpty())                  
+
+          {
+
+              ans[i]=st.peek()
+
+           }
+
+           else
+
+           {
+
+              ans[i]=-1;
+
+            }
+
+            st.push(ar[i]);
+
+       }
+
+return ans;
+
+}
+
+CODE FOR NEAREST SMALLEST INDEX FROM LEFT SIDE :
+
+----------------------------------------------
+
+int[] NSI(int ar[])
+
+{
+
+int[] ans=new int[ar.length];
+
+for(int i=0;i<ar.length;i++)
+
+{
+
+           if(ar[st.peek()] < ar[i])
+
+           {
+
+             ans[i]=st.peek();
+
+             st.push(i);
+
+           }
+
+                  
+
+            while(!st.isEmpty() && st[st.peek()]>=ar[i])
+
+           {
+
+               st.pop();
+
+           } 
+
+                     
+
+           if(!st.isEmpty())                  
+
+          {
+
+           ans[i]=st.peek();
+
+          }
+
+         else
+
+         {
+
+          ans[i]=-1;
+
+          }
+
+           st.push(i);
+
+      }
+
+return ans;
+
+}
+
+Nearest Smallest Element Variation 
+
+---------------------------------
+
+Q : Nearest Smallest ELement on left [Solved]
+
+Q : Nearest Smallest ELement on right 
+
+        idea : iterate from right to left
+
+Q : Nearest/Next Greatest ELement on left 
+
+               ar[st.peek()]<=ar[i]
+
+Q : Nearest/Next Greatest ELement on right 
+
+        idea : iterate from right to left
+
+                     
