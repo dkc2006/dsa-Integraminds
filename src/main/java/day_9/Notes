@@ -1,0 +1,39 @@
+.) Queue Implementation Using Linked List
+
+.) Queue Implementation Using Stack
+
+.) Queue Basic Operation
+
+              .) enque()
+
+              .) deque()
+
+               ) peek()
+
+               .) isEmpty()
+
+----------------------------------------------------------------------
+
+N_th Perfect Number  [Microdoft Interview Recent question]
+
+-------------------
+
+Write a function , to Find N_th Perfect Number(N) , That Takes an Integer N as input And Returns N_Th Perfect Number Formed By The Only Digits 1 & 2
+
+input  : 1<=N<=1000
+
+output : Returns N_Th Perfect Number Formed By The Only Digits 1 & 2
+
+Example :
+
+---------
+
+         N       :          1	    2     3	    4	      5        6	7	   8
+
+Number    :          1     2     11      12      21      22      111     112
+
+N=6        --> Ans = 22
+
+N=8       -->  Ans = 112
+
+N=1000 -->  Ans =   ?
