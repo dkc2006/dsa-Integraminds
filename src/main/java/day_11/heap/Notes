@@ -1,0 +1,430 @@
+Connecting Ropes
+
+-----------------
+
+Given An Array That Represents The Size Of Different Ropes.in a single Operation You Can Connect Two Ropes.Cost Of Connecting Two Ropes is Sum Of The Length Of Ropes You Are Connecting. FInd The Minimum Cost Of Connecting All The Ropes.
+
+        A : [ 2 , 5 , 3 , 2 , 6]
+
+----                 2                                                   ----         2                                                          ----         2
+
+----------     5                                                  ----------   5                                                    ----         2
+
+------              3                                                 ------              3                                                 ------       3
+
+----                  2                                                 ----                  2                                                 ----------   5
+
+------------  6                                                 ------------  6                                               ------------ 6
+
+cost[2+5]=7                                                       cost[3+2]=5                                                       cost[2+2]=4
+
+cost[3+2]=5                                                       cost[6+5]=11                                                      cost[4+3]=7
+
+cost[7+5]=12                                                      cost[11+5]=16                                                     cost[5+6]=11
+
+cost[6+12]=18                                                    cost[16+2]=18                                                     cost[7+11]=18
+
+Total Cost :7+5+12+18=42                              Total Cost :5+11+16+18=50                             Total Cost :4+7+11+18=40
+
+BruteForce IDEA :
+
+---------------
+
+ 	Take All Elements And Sort
+
+        Join 2 Ropes At a Time put That in Array & Then Sort
+
+        Keep Repeating until Only One Rope is Left.
+
+
+
+ 			T.C = ~ O(n^2)   (Greater Than N^2)
+
+Optimized Logic :
+
+----------------
+
+A: [2,5,6,3]
+
+  2
+
+  3
+
+  5
+
+  6
+
+-------
+
+Heap              cost =0
+
+ 5
+
+  5
+
+  6
+
+-------
+
+Heap            cost=5
+
+
+
+  10
+
+  6
+
+-------
+
+Heap           cost=15
+
+
+
+ 16
+
+-------
+
+Heap           cost=31
+
+CODE :
+
+-------
+
+public int connect_Rope(int[] A)
+
+{
+
+PriorityQueue<Integer> pq=new PriorityQueue<>();
+
+int cost=0;
+
+//insert all elemets in pq
+
+for(int x:A)
+
+{
+
+pq.offer(x);  // add(x);
+
+}
+
+while(pq.size()!=1)
+
+{
+
+int ele1=pq.poll();  // remove()
+
+int ele2=pq.poll();
+
+cost=cost+(ele1+ele2);
+
+pq.offer(ele1+ele2);
+
+}
+
+return cost;
+
+}
+
+T.C = O(N*logN)
+
+S.C = O(N)
+
+Heap DataStructure :
+
+-------------------
+
+                      It is Binary Tree With 2 Properties.
+
+1)Complete Binary Tree :
+
+-----------------------
+
+                          All Levels Are Completely Filled.
+
+                          The Last Level is Filled From Left To Right.
+
+2)Heap Order Priority :
+
+-----------------------
+
+ 			  .)incase Of Maxheap , The Value Of Parent>=Child
+
+                          .)incase Of Minheap , The Value Of Parent<=Child
+
+          1
+
+    2        3
+
+ 4   5   6   7
+
+ MIN HEAP
+
+  --------
+
+        7
+
+    6      5
+
+  4   3  2   1
+
+ MAX HEAP
+
+ ----------
+
+           1           ---> Level 0
+
+      2       3      ---> Level 1
+
+   4   5  6   7   ---> Level 2
+
+8    9              ---> Level 3
+
+   COMPLETE BINARY TREE
+
+
+
+         1             ---> Level 0
+
+     2       3        ---> Level 1
+
+  4   5  6   7    ---> Level 2
+
+8   9               ---> Level 3
+
+ COMPLETE BINARY TREE
+
+
+
+Array Representation :
+
+----------------------
+
+ 0 1 2 3 4 5 6 7 8
+
+[1,2,3,4,5,6,7,8,9]
+
+
+
+  to Find Left    Child  --> [ 2*i+1 ]
+
+  to Find Right Child  --> [ 2*i+2 ]
+
+  i=0         i=1         i=2
+
+  ----       ---       ----
+
+  lc=1	 lc=4      lc=(2*2+1=5)
+
+  rc=2      rc=5      rc=(2*2+2=6)
+
+ 0 1 2 3 4 5 6 7 8
+
+[1,2,3,4,5,6,7,8,9]
+
+-----------------------------------------------------------------
+
+  to Find Parent  --> [(i-1)/2]
+
+i=6
+
+---
+
+(6-1)/2
+
+5/2=2
+
+
+
+Insertion In Heap
+
+------------------
+
+
+
+			    5
+
+                      12          20
+
+		 25    13  24     22
+
+  	     35
+
+           [5,12,20,25,13,24,22,35]
+
+     insert :    11
+
+---------------------------------------------
+
+
+
+			     5
+
+                      12          20
+
+		 25    13  24     22                                       Violating The Basic Property, We Have To Swap 25 & 11
+
+  	     35	11
+
+           [5,12,20,25,13,24,22,35,11]
+
+---------------------------------------------
+
+
+
+                 5
+
+        12             20
+
+    11      13    24      22                                     Violating The Basic Property, We Have To Swap 12 & 11
+
+35   25
+
+           [5,12,20,11,13,24,22,35,25]
+
+---------------------------------------------
+
+
+
+			     5
+
+                      11           20
+
+		  12    13  24     22
+
+  	     35    25
+
+           [5,11,20,12,13,24,22,35,25]
+
+Heapify :
+
+---------
+
+           To Maintain Heap Property After Any Operation
+
+CODE :
+
+------
+
+heap[]  ,  i=heap.size()-1
+
+while(i>0)
+
+{
+
+pi=(i-1)/2;
+
+if(heap[pi]>heap[i])
+
+{
+
+swap(heap[pi],heap[i])
+
+i=pi;
+
+}
+
+else
+
+{
+
+break;
+
+}
+
+}
+
+T.C = O(Height Of Tree)  --> O(logN)
+
+Extract Min
+
+-----------
+
+            1
+
+       2         3
+
+   4     5   6    7
+
+8    9
+
+[1,2,3,4,5,6,7,8,9]
+
+----------------------------------------
+
+ 9   We Need To Swap  9 at Zero th Index [Bcz We Need To Take LeftSide RightMost ELement]
+
+       2         3                                                               Now It is Violating The Basic Property
+
+   4     5   6    7                                                           We Have To Perform Heapify , Until Satisfied The Basic Property
+
+8
+
+[9,2,3,4,5,6,7,8,1]
+
+----------------------------------------
+
+             2
+
+ 9         3
+
+   4     5   6    7
+
+8
+
+[2,9,3,4,5,6,7,8]
+
+----------------------------------------
+
+              2
+
+        4         3
+
+ 9     5   6    7
+
+8
+
+[2,4,3,9,5,6,7,8]
+
+----------------------------------------
+
+              2
+
+        4         3
+
+    8    5   6    7
+
+9
+
+[2,4,3,8,5,6,7,9]
+
+if(A[lc]<=A[i] && A[lc]<=A[rc])
+
+{
+
+swap(A[i],A[lc]);
+
+i=lc;
+
+}
+
+else
+
+if(A[rc]<=A[i] && A[rc]<=A[lc])
+
+{
+
+swap(A[i],A[rc]);
+
+i=rc;
+
+}
+
+else
+
+{
+
+break;
+
+}
+
