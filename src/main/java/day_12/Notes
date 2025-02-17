@@ -1,0 +1,464 @@
+pq.poll() or pq.remove()      T.C = O(logn)
+
+pq.offer() or pq.add()           T.C = O(logn)
+
+-------------------
+
+pq.peek()                                  T.C = O(1)
+
+pq.size()
+
+pq.isEmpty()
+
+K_th Largest Element
+
+--------------------
+
+Given Arr[N] ,Find The K_th Largest Element.
+
+	arr : [8,5,1,2,4,9,7]  , K=3
+
+
+
+              ans =7
+
+---------------------------------------------------
+
+First  Largest Element : 9
+
+Second Largest Element : 8
+
+Third  Largest Element : 7
+
+-----------------------------------------------------
+
+Quiz :
+
+------
+
+          [1,2,3,4,5]  , K=5
+
+
+
+		ans = 1
+
+            [8,5,1,2,4,9,7] , K=3 , N=7
+
+
+
+  ans = ?
+
+
+
+ Idea 1 :	Sort The Array
+
+----------------------
+
+
+
+  Sort : [1,2,4,5,7,8,9]
+
+
+
+  N-K Removal [7-3=4]
+
+            [7,8,9]
+
+
+
+             Peek = ?
+
+  ans = peek[7]
+
+ T.C = O(nlogn)
+
+Optimized Approach
+
+-------------------
+
+		             i
+
+                     [8,5,1,2,4,9,7]  K=3
+
+     Heap:[1,5,8]
+
+                      1
+
+		   5    8
+
+------------------------------------
+
+                               i
+
+                     [8,5,1,2,4,9,7]  K=3
+
+     Heap:[2,5,8]
+
+
+
+                      2
+
+		   5    8
+
+------------------------------------
+
+                                  i
+
+                     [8,5,1,2,4,9,7]  K=3
+
+     Heap:[4,5,8]
+
+                      4
+
+		   5    8
+
+------------------------------------
+
+                                     i
+
+                     [8,5,1,2,4,9,7]  K=3
+
+     Heap:[5,8,9]
+
+                      5
+
+		   8    9
+
+------------------------------------
+
+                                        i
+
+                     [8,5,1,2,4,9,7]  K=3
+
+     Heap:[7,8,9]
+
+                      7
+
+		   8    9
+
+----------------------------------
+
+code :
+
+-------
+
+
+
+         public int solve(int[] A, int K)                                                               T.C = O(N-K)*logK  , S.C = O(K)
+
+	 {
+
+		PriorityQueue<Integer> pq=new PriorityQueue<>();
+
+		//Add K Number Of Elements PQ
+
+                for(int i=0;i<k;i++)
+
+		{
+
+		     pq.offer(A[i]);
+
+		}
+
+		//Iterate Through rest Of ELements
+
+    		for(int i=k;i<n;i++)
+
+		{
+
+		   if(A[i]>pq.peek())
+
+		   {
+
+		      pq.poll();
+
+                      pq.offer(A[i]);
+
+	           }
+
+		}
+
+            return pq.peek();
+
+	 }
+
+
+
+K_th Largest For All WIndows
+
+-----------------------------
+
+arr[] = [10,18,7,5,16,19,3]  , K=3
+
+window 1 : [10,18,7]                  --> 7    [7,10,18]
+
+window 2 : [10,18,7,5]              --> 7    [7,10,18]
+
+window 3 : [10,18,7,5,16]          --> 10   [10,16,18]
+
+window 4 : [10,18,7,5,16,19]      --> 16   [16,18,19]
+
+window 5 : [10,18,7,5,16,19,3]   --> 16   [16,18,19]
+
+         ans : [7,7,10,16,16]
+
+--------------------------------------------
+
+Quiz : [5,4,1,6,7]  , K=2
+
+window 1 : [5,4]        --> 4
+
+window 2 : [5,4,1]      --> 4
+
+window 3 : [5,4,1,6]    --> 5
+
+window 4 : [5,4,1,6,7]  --> 6
+
+window 4 : [10,18,7,5,16,19]      --> 16   [16,18,19]
+
+Samp Code :
+
+-----------
+
+        1.Build Min Heap Of Size K , in answer array Add Top Most Element
+
+        2.Iterate On Remaining Elements -- > N-K
+
+             for(every N-K Elements)
+
+ 	     {
+
+                   if(curr_ele > peek_ele)
+
+	           {
+
+		        pq.poll();
+
+	                pq.offer(curr_ele);
+
+                   }
+
+	           ans.add(pq.peek());
+
+	     }
+
+Sort The Nearly Sorted Array  :  [Google Interview Queation]
+
+--------------------------
+
+                                 Every Element is Shifted Away From its Current Position By at Most K-Steps.
+
+                   0   1   2   3  4  5   6   7   8
+
+            A : [13,22,31,45,11,20,48,60,50]  , K=4
+
+          ans : [11 13 20 22 31 45 48 50 60]
+
+		      0  1   2   3  4   5    6   7    8
+
+-------------------------------------------------------------
+
+Idea 1:
+
+         Sort Array T.C = O(NlogN)
+
+
+
+Optimized Approach
+
+-------------------
+
+ i
+
+          0  1   2   3  4  5   6   7    8
+
+A   : [13,22,31,45,11,20,48,60,50]   , K=4
+
+ans : [11   13   20  22  31  45  48  50  60]            ----> Expected Answer
+
+            _   _   _    _   _    _    _   _    _
+
+            0    1    2     3   4     5    6    7    8
+
+
+
+                                    Create a Min Heap Of Size K+1
+
+ Step 1 : [Add K+1 Elements in Heap]
+
+-----
+
+Heap : [   11  , 13 , 22 , 31 , 45 ]     --> Heare We Can Easily Get Zero_th Index Answer Element At Peek Of Heap
+
+
+
+ans : [11]
+
+----------------------------------------------------
+
+ Step 2 : [Add Next Element [5th index Value] in Heap]
+
+-----
+
+  i=20
+
+                            Here Current Element is Greater Than Peek Element , We Have To Remove Peek , as well As insert Current Element
+                            into the Heap , So That We Can Easily Get First Index Answer
+
+
+
+Heap : [  13 ,  20  22 , 31 , 45 ]     --> Heare We Can Easily Get First Index Answer Element At Peek Of Heap
+
+
+
+ans : [11,13]
+
+Heap : [  20 ,  22 , 31 , 45 ]            --> After Getting  Answer We Have Remove That Top Element [ 13 ]
+
+
+
+----------------------------------------------------------------------------------
+
+ Step 3 : [Add Next Element [6th index Value] in Heap]
+
+-----
+
+  i=48
+
+                            Here Current Element is Greater Than Peek Element , We Have To Remove Peek , as well As insert Current Element
+                            into theHeap , So That We Can Easily Get Second Index Answer
+
+Heap : [    20 , 22 , 31 , 45 ,  48 ]     --> Heare We Can Easily Get Second Index Element At Peek Of Heap
+
+
+
+ans : [11,13,20]
+
+Heap : [  22 , 31 , 45 , 48 ]               --> After Getting  Answer We Have Remove That Top Element [ 20 ]
+
+----------------------------------------------------------------------------------
+
+ Step 4 : [Add Next Element [7th index Value] in Heap]
+
+-----
+
+  i=60
+
+                            Here Current Element is Greater Than Peek Element , We Have To Remove Peek , as well As insert Current Element
+                            into theHeap , So That We Can Easily Get Third Index Answer
+
+Heap : [  20 , 22 , 31 , 45 ,  48 ]     --> Heare We Can Easily Get Third Index Element At Peek Of Heap
+
+
+
+ans : [11,13,20,22]
+
+Heap : [ 31 , 45 , 48 ,  60  ]--> After Getting  Answer We Have Remove That Top Element [ 22 ]
+
+----------------------------------------------------------------------------------
+
+ Step 5 : [Add Next Element [7th index Value] in Heap]
+
+-----
+
+  i=50
+
+                            Here Current Element is Greater Than Peek Element , We Have To Remove Peek , as well As insert Current Element
+                            into theHeap , So That We Can Easily Get Third Index Answer
+
+Heap : [  20 , 22 , 31 , 45 ,  48 ]     --> Heare We Can Easily Get Fourth Index Element At Peek Of Heap
+
+
+
+ans : [11,13,20,22,31]
+
+Heap : [ 45 , 48 ,  50  , 60 ]     --> After Getting  Answer We Have Remove That Top Element [ 31 ]
+
+----------------------------------------------------------------------------------
+
+ Step 6 : [Add Next Element [7th index Value] in Heap]
+
+-----
+
+                  We Have to Add Rest Of The Elemets in Answer Array
+
+
+
+ans : [11,13,20,22,31,45,48,50,60]
+
+Heap : [ ]
+
+
+
+
+
+Code :
+
+-------
+
+public int[] solve(int[] A,int K)
+
+{
+
+PriorityQueue<Integer> pq=new PriorityQueue<>();
+
+int i=0 , n=A.length;
+
+for(int i=0;i<=K;i++)        ---->  K
+
+{
+
+pq.offer(A[i]);
+
+}
+
+int j=0;
+
+while(i<n)                   ----> (N-K)Log K
+
+{
+
+A[j]=pq.poll();
+
+pq.offer(A[i]);
+
+i++;
+
+j++;
+
+}
+
+//Add Remaining Elements
+
+while(j<n)                   ----> K log K
+
+{
+
+A[j]=pq.poll();
+
+j++;
+
+}
+
+return A;
+
+}
+
+1.O(K)
+
+2.(N-K)log K
+
+3.K log K
+
+T.C = K + (N-K)log K + K log K
+
+    = K + (N log K) - (K log K) + (K log K)
+
+    = N log K  (or) K log K
+
+    = k log K (i prefer)
+
+T.C = O(K log K)
+
+S.C = O(K)
+
