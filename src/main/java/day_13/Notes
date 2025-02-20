@@ -1,0 +1,420 @@
+Running Median :
+
+----------------
+
+Median : A point Which Divide Data into 2 Halves
+
+                 {1st half<=2nd half}
+
+       ar[5] : [2 9 6 4 5]
+
+       sort   : [2 4 5 6 9]                                  median = 5
+
+                     ---   ---
+
+       ar[7] : [ 2  -1  10  4   15  3   -2]
+
+       sort   : [-2 -1  2    3    4  10   15]             median : 3
+
+                   --------         -------
+
+       ar[6] : [-1  10  3  9  6  2]
+
+       sort   : [-1   2   3  6  9  10]                         median = (3+6)/2
+
+                    ----- <= -----
+
+                                                                           median = 4
+
+
+
+      ar[8]  : [ 2  4  -3  12  6    24  20  10]
+
+      sort    : [-3  2   4   6  10    12  20  24]
+
+                     -------              ---------
+
+ median = 8
+
+SubArray
+
+--------
+
+[7,6,3]
+
+          [7] , [7,6] , [7,6,3]
+
+          [6] , [6,3] , [3]
+
+
+
+----------------------------------------------------------------------------------------
+
+Prefix SubArray [SubArray Starting at index 0]
+
+-----------------------------------------
+
+
+
+ar[5] : [9 6 3 10 4]
+
+
+
+
+
+prefix SUbArray
+
+----------------
+
+[0,0] {9}
+
+[0,1] {9 6}
+
+[0,2] {9 6 3}
+
+[0,3] {9 6 3 10}
+
+[0,4] {9 6 3 10 4}
+
+
+
+
+Running Median  [ Infinite Stream Of Integers ]
+
+--------------------------------------------
+
+                                                Given an array , Print median of all Prefix SubArrays
+
+ar[5] : [9 6 3 10 4]
+
+ idea 1  [BruteForce] :  sort every SubArray and Calculate Median
+
+--------------------
+
+SubArray                Median
+
+--------------------------
+
+[0,0] {9}               --->   9              ---->  t.c = O(1 log(1))
+
+[0,1] {9 6}             --->   7              ---->  t.c = O(2 log(2))
+
+[0,2] {9 6 3}         --->   6              ---->  t.c = O(3 log(3))
+
+[0,3] {9 6 3 10}     --->   7              ---->  t.c = O(4 log(4))
+
+[0,4] {9 6 3 10 4}  --->  6              ---->  t.c = O(5 log(5))
+
+                                                                      1 log(1) + 2 log(2) + 3 log(3) + N log(N)
+
+    log(x)+log(y)=log(x*y)
+
+                                                                      T.C =  O( N*N log(N*N))
+
+ T.C =  ~ O(N^2 log(N^2))
+
+Idea 2 : Using Insertion Sort     T.C = O(N^2)
+
+-----------------------------
+
+      [9 6 3 10 4]
+
+
+
+    Median
+
+[0,0]   [9]                 {9}
+
+[0,1]    [9 6]
+
+           [6 9]              {7}
+
+[0,2]   [6 9 3]
+
+           [3 6 9]            {6}
+
+[0,3]  [3 6 9 10]        {7}
+
+[0,4]  [3 6 9 10 4]
+
+           [3 4 6 9 10]     {6}
+
+  T.C = O(N^2)
+
+ar : [4,3,5,1,2,7,6]
+
+minheap : [1,2,4,3,5,6,7]
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+---------
+
+minheap
+
+------------------------------------------
+
+maxheap : [7,6,5,4,3,2,1]
+
+7
+
+6
+
+5
+
+4
+
+3
+
+2
+
+1
+
+---------
+
+maxheap
+
+MaxHeap Code
+
+---------------
+
+ PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
+ pq.offer(3);
+ pq.offer(1);
+ pq.offer(4);
+ pq.offer(2);
+
+	System.out.println(pq.peek());
+	System.out.println(pq);
+
+Optimization  :
+
+-------------
+
+ar[9] : [3 1 6 10 14  2 17 12  9]
+
+sort   : [1 2 3  6  9   10   12  14  17]
+
+             --------   M    -------
+
+        [2 3 6 1 9     14  17  10  12 ]
+
+	 -------     M  ---------
+
+        maxheap         minheap
+
+Observation For Odd Number Of Elements  :  All 1st half <= All 2nd half
+
+---------------------------------------
+
+1.max Element of  1st half <= min Element of 2nd half
+
+2.1st half size - 2nd half size =1 [including Median]
+
+3.Final Median = Max Element Of First Half
+
+
+
+ar[9] : [3 1 6 10 14  2 17 12  9]
+
+sort  : [1   2  3  6    9  10  12  14  17]
+
+            --------  M  -----------
+
+        [2 3 6 1 9        14 17 10 12 ]
+
+	 -------        --------
+
+-----------------------------------------------------------------------------------------------
+
+Observation For Eeven Number Of Elements : All 1st half <= All 2nd half
+
+ ---------------------------------------
+
+
+
+1.max Elements Of 1st half <= min Elements Of 2nd half
+
+2.1st half size - 2nd half size = 0 [Median 1 in FirstHalf , Median 2 in Second Half]
+
+3.Final Median = (Max Element Of First Half + Min ELement Of Seccond Half) / 2;
+
+ar[10] : [3 4 16 12 10 14  8  9  2  1]
+
+sort    : [ 1  2   3   4    8   9  10  12  14  16]
+
+               --------   M  M  ----------
+
+
+
+         [4  2  1  3  8    9  16  14  10  12]
+
+          ---------     -------------
+
+--------------------------------------------------------------------------------------------------------
+
+Combine Observation :
+
+----------------------
+
+1.max Elements Of 1st half <= min Elements Of 2nd half
+
+2.First Half Size - Second Half Size = 0 (OR) 1
+
+Odd :
+
+-----
+
+       Median = Max Element Of First Half
+
+even :
+
+-----
+
+       Median = (Max Of 1st half + min Of 2nd Half) / 2
+
+
+
+ar[10] : [4 6 9 2 1 10 14 7 3 5]
+
+B1 : maxheap : []
+
+                      Heap : []
+
+B2 : minheap : []
+
+                      print : []
+
+
+
+Element : insert                Box1 - Box2 = 0 ,1              Transfer                                 Meadian
+
+------------------------------------------------------------------------------------
+
+  4:box1                                       1-0=1                             *                                                   4
+
+------------------------------------------------------------------------------------
+
+  6:box2                                      1-1=0                             *                                          (4+6)/2=5
+
+------------------------------------------------------------------------------------
+
+  9:box2                                      1-2=-1                   min of box2 => box1
+
+                                                    2-1=1                                                                                    6
+
+------------------------------------------------------ -----------------------------
+
+  2:<=max of box 1:box 1          3-1=2                    max of box1 => box2                   (4+6)/2=5
+
+-----------------------------------------------------------------------------------
+
+  1:<=max of box 1:box1            3-2=1                            *                                               max of 1st[4]
+
+-----------------------------------------------------------------------------------
+
+ 10:>max of box 1: box2            3-3=0                          *                                                (4+6)/2
+
+-----------------------------------------------------------------------------------
+
+ 14:>max of box 1: box2            3-4=-1                 min of box2=>box1
+
+                                                     4-3=1                                                                              Max 1st Box =>6
+
+-----------------------------------------------------------------------------------
+
+void madians(int ar[])
+
+{
+
+    int N=ar,length;
+
+    PriorityQueue<Integer> maxpq=new PriorityQueue<Integer>(Collections.reverseOrder());
+
+    PriorityQueue<Integer> minpq=new PriorityQueue<>();
+
+    System.out.println(ar[0]);
+
+    maxpq.add(ar[0]);
+
+    for(int i=1;i<N;i++)
+
+   {
+
+	int x=ar[i];
+
+	if(x<=maxpq.peek())
+
+	{
+
+		maxpq.add(x);
+
+	}
+
+	else
+
+	{
+
+		minpq.add(x);
+
+	}
+
+        if(maxpq.size()-minpq.size()>1)
+
+	{
+
+		int max=maxpq.remove();
+
+                minpq.add(max);
+
+	}
+
+	else
+
+	   if(maxpq.size()-minpq.size()<0)
+
+	{
+
+		int min=minpq.remove();
+
+                maxpq.add(min);
+
+	}
+
+
+
+	int totalsize=maxpq.size()+minpq.size();
+
+	if(totalsize%2==1)
+
+	{
+
+	       System.out.println(maxpq.peek());
+
+	}
+
+	else
+
+	{
+
+		int ans=(maxpq.peek()+minpq.peek())/2;
+
+		System.out.println(ans);
+
+	}
+
+    }
+
+}
+
