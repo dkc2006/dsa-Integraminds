@@ -2,7 +2,6 @@ package day_14.hashmap;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class Implementation {
     public static void main(String[] args) {
         // Creating a HashMap with Integer keys and String values
