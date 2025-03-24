@@ -2,7 +2,7 @@ package day_15;
 
 import java.util.*;
 
-public class GroupAnagrams {
+public class Group_Anagrams {
     public static List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> anagramMap = new HashMap<>();
 
